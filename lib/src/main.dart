@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:candlesticks/src/controller/candlestick_chart_controller.dart';
 import 'package:candlesticks/src/models/candle.dart';
 import 'package:candlesticks/src/theme/theme_data.dart';
 import 'package:candlesticks/src/widgets/toolbar_action.dart';
@@ -40,6 +41,8 @@ class Candlesticks extends StatefulWidget {
   /// Custom loader widget
   final Widget? loadingWidget;
 
+  final CandlestickChartController? controller;
+
   Candlesticks(
       {Key? key,
       required this.candles,
@@ -47,6 +50,7 @@ class Candlesticks extends StatefulWidget {
       this.actions = const [],
       this.chartAdjust = ChartAdjust.visibleRange,
       this.displayZoomActions = true,
+      this.controller,
       this.loadingWidget})
       : assert(candles.length == 0 || candles.length > 1,
             "Please provide at least 2 candles"),
@@ -69,6 +73,18 @@ class _CandlesticksState extends State<Candlesticks> {
 
   /// true when widget.onLoadMoreCandles is fetching new candles.
   bool isCallingLoadMore = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    super.initState();
+    widget.controller?.addListener(() {
+      setState(() {
+        index= widget.controller?.index?? 0;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
