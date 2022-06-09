@@ -15,6 +15,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List<Candle> candles = [];
   bool themeIsDark = false;
+  ChartController chartController = ChartController();
 
   @override
   void initState() {
@@ -38,6 +39,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void dispose() {
+    chartController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: themeIsDark ? ThemeData.dark() : ThemeData.light(),
@@ -49,7 +55,7 @@ class _MyAppState extends State<MyApp> {
             IconButton(
               onPressed: () {
                 setState(() {
-                  themeIsDark = !themeIsDark;
+                  chartController.setIndex(-10);
                 });
               },
               icon: Icon(
@@ -61,7 +67,7 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
         body: Center(
-          child: Candlesticks(candles: candles),
+          child: Candlesticks(candles: candles,controller: chartController),
         ),
       ),
     );
