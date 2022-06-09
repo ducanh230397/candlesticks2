@@ -40,7 +40,7 @@ class Candlesticks extends StatefulWidget {
 
   /// Custom loader widget
   final Widget? loadingWidget;
-  final ChartController? controller;
+  final TradingChartController? controller;
 
   Candlesticks(
       {Key? key,

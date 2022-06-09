@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class ChartController extends ChangeNotifier{
+class TradingChartController extends ChangeNotifier{
   int index = 0;
   void setIndex(int value) {
     this.index = value;
