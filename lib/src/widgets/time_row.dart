@@ -129,7 +129,7 @@ class _TimeRowState extends State<TimeRow> {
                     Expanded(
                       child: Container(
                         width: 0.3,
-                        color: Theme.of(context).grayColor,
+                        color: Color(0x3F9AA0A5),
                       ),
                     ),
                     Container(
