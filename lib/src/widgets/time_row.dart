@@ -107,7 +107,7 @@ class _TimeRowState extends State<TimeRow> {
         children: [
           Container(
             color: Color(0xFFF4F4F4),
-            margin: EdgeInsets.only(bottom: 5),
+            // margin: EdgeInsets.only(bottom: 5),
             child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               itemCount: widget.candles.length , // math.max(widget.candles.length, 1000),
