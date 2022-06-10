@@ -27,3 +27,5 @@ example/ios/Runner/GeneratedPluginRegistrant.m
 example/.idea/workspace.xml
 example/.packages
 example/build/
+.dart_tool/
+.packages
