@@ -27,5 +27,8 @@ example/ios/Runner/GeneratedPluginRegistrant.m
 example/.idea/workspace.xml
 example/.packages
 example/build/
+example/.idea/
 .dart_tool/
+.idea/workspace.xml
 .packages
+example/pubspec.lock

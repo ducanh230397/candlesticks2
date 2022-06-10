@@ -67,7 +67,8 @@ class _MobileChartState extends State<MobileChart> {
   double calcutePriceScale(double height, double high, double low) {
     int minTiles = (height / MIN_PRICETILE_HEIGHT).floor();
     minTiles = max(2, minTiles);
-    double sizeRange = high - low;
+    double sizeRange = max(0.01, high - low);
+
     double minStepSize = sizeRange / minTiles;
     double base =
         pow(10, HelperFunctions.log10(minStepSize).floor()).toDouble();

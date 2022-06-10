@@ -117,12 +117,12 @@ class _TimeRowState extends State<TimeRow> {
               reverse: true,
               itemBuilder: (context, index) {
                 DateTime _time = _timeCalculator(step, index, dif);
-                // if (index == 0){
-                //   return  SizedBox(
-                //     height: 0,
-                //     width: 0,
-                //   );
-                // }
+                if (index == 0){
+                  return  SizedBox(
+                    height: 0,
+                    width: 0,
+                  );
+                }
                 return Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
