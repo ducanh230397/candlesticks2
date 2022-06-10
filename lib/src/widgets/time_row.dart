@@ -100,45 +100,60 @@ class _TimeRowState extends State<TimeRow> {
     int step = _stepCalculator();
     final dif =
         widget.candles[0].date.difference(widget.candles[1].date) * step;
-    return Padding(
+    return Container(
+      color: Theme.of(context).background,
       padding: const EdgeInsets.only(right: PRICE_BAR_WIDTH + 1.0),
       child: Stack(
         children: [
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: widget.candles.length, // math.max(widget.candles.length, 1000),
-            scrollDirection: Axis.horizontal,
-            itemExtent: step * widget.candleWidth,
-            controller: _scrollController,
-            reverse: true,
-            itemBuilder: (context, index) {
-              DateTime _time = _timeCalculator(step, index, dif);
-              if (index == 0){
-                 return  SizedBox(
-                   height: 0,
-                   width: 0,
-                 );
-              }
-              return Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Container(
-                      width: 0.05,
-                      color: Theme.of(context).grayColor,
+          Container(
+            color: Color(0xFFF4F4F4),
+            margin: EdgeInsets.only(bottom: 5),
+            child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: widget.candles.length , // math.max(widget.candles.length, 1000),
+              scrollDirection: Axis.horizontal,
+              itemExtent: step * widget.candleWidth,
+              controller: _scrollController,
+              reverse: true,
+              itemBuilder: (context, index) {
+                DateTime _time = _timeCalculator(step, index, dif);
+                // if (index == 0){
+                //   return  SizedBox(
+                //     height: 0,
+                //     width: 0,
+                //   );
+                // }
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        width: 0.05,
+                        color: Theme.of(context).grayColor,
+                      ),
                     ),
-                  ),
-                  _monthDayText(
-                      _time, Theme.of(context).scaleNumbersColor)
+                    Container(
+                      padding: EdgeInsets.only(top: 10),
+                      color: Theme.of(context).background,
+                      width: double.infinity,
+                      child: Container( //k can
+                        alignment: Alignment.center,
+                        child: _monthDayText(
+                            _time, Theme.of(context).scaleNumbersColor),
+                      )
 
-                  // dif.compareTo(Duration(days: 1)) > 0
-                  //     ? _monthDayText(
-                  //         _time, Theme.of(context).scaleNumbersColor)
-                  //     : _hourMinuteText(
-                  //         _time, Theme.of(context).scaleNumbersColor),
-                ],
-              );
-            },
+                    )
+
+
+                    // dif.compareTo(Duration(days: 1)) > 0
+                    //     ? _monthDayText(
+                    //         _time, Theme.of(context).scaleNumbersColor)
+                    //     : _hourMinuteText(
+                    //         _time, Theme.of(context).scaleNumbersColor),
+                  ],
+                );
+              },
+            ),
           ),
           widget.indicatorX == null
               ? Container()

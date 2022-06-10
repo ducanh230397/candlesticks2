@@ -199,12 +199,17 @@ class _MobileChartState extends State<MobileChart> {
                                   children: [
                                     Expanded(
                                       child: Container(
+                                        margin: EdgeInsets.only(bottom: 10),
                                         decoration: BoxDecoration(
-                                          //color: Color(0xFFF4F4F4),
                                           border: Border(
                                             right: BorderSide(
                                               color:
-                                                  Theme.of(context).grayColor,
+                                                  Color(0xFF9AA0A5),
+                                              width: 1,
+                                            ),
+                                            bottom: BorderSide(
+                                              color:
+                                                  Color(0x3F9AA0A5),
                                               width: 1,
                                             ),
                                           ),
@@ -353,7 +358,7 @@ class _MobileChartState extends State<MobileChart> {
                           ? Positioned(
                               child: Container(
                                 width: widget.candleWidth,
-                                height: maxHeight,
+                                height: maxHeight-20,
                                 color: Theme.of(context).gold.withOpacity(0.2),
                               ),
                               right: (maxWidth - longPressX!) ~/
