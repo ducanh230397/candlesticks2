@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:candlesticks/src/controller/chart_controller.dart';
+import 'package:candlesticks/src/controller/candlestick_chart_controller.dart';
 import 'package:candlesticks/src/models/candle.dart';
 import 'package:candlesticks/src/theme/theme_data.dart';
 import 'package:candlesticks/src/widgets/toolbar_action.dart';
@@ -40,7 +40,8 @@ class Candlesticks extends StatefulWidget {
 
   /// Custom loader widget
   final Widget? loadingWidget;
-  final TradingChartController? controller;
+
+  final CandlestickChartController? controller;
 
   Candlesticks(
       {Key? key,
@@ -72,9 +73,11 @@ class _CandlesticksState extends State<Candlesticks> {
 
   /// true when widget.onLoadMoreCandles is fetching new candles.
   bool isCallingLoadMore = false;
+
   @override
   void initState() {
     // TODO: implement initState
+    super.initState();
     super.initState();
     widget.controller?.addListener(() {
       setState(() {
@@ -82,6 +85,7 @@ class _CandlesticksState extends State<Candlesticks> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DarkColorPalette {
   static const grayColor = Color(0xFF848E9C);
-  static const background = Color(0xFF191B20);
+  static const background = Color(0xFF000000);
   static const primaryGreen = Color(0xFF00B14F);
   static const secondaryGreen = Color(0xFF005940);
   static const primaryRed = Color(0xFFF46666);
@@ -18,7 +18,7 @@ class DarkColorPalette {
 
 class LightColorPalette {
   static const grayColor = Color(0xFF848E9C);
-  static const background = Color(0xFFFAFAFA);
+  static const background = Color(0xFFFFFFFF);
   static const primaryGreen = Color(0xFF00B14F);
   static const secondaryGreen = Color(0xFF8CCCC6);
   static const primaryRed = Color(0xFFF46666);
