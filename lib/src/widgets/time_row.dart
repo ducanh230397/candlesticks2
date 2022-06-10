@@ -128,7 +128,7 @@ class _TimeRowState extends State<TimeRow> {
                   children: [
                     Expanded(
                       child: Container(
-                        width: 0.05,
+                        width: 0.3,
                         color: Theme.of(context).grayColor,
                       ),
                     ),
@@ -138,8 +138,9 @@ class _TimeRowState extends State<TimeRow> {
                       width: double.infinity,
                       child: Container( //k can
                         alignment: Alignment.center,
-                        child: _monthDayText(
-                            _time, Theme.of(context).scaleNumbersColor),
+                        child: index != 0
+                            ?_monthDayText(_time, Theme.of(context).scaleNumbersColor)
+                            : SizedBox(height: 20, width: 100,)
                       )
 
                     )
