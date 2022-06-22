@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:candlesticks/src/models/candle.dart';
 import 'package:flutter/material.dart';
 import '../models/candle.dart';
@@ -39,7 +41,7 @@ class CandleStickWidget extends LeafRenderObjectWidget {
       BuildContext context, covariant RenderObject renderObject) {
     CandleStickRenderObject candlestickRenderObject =
         renderObject as CandleStickRenderObject;
-
+    candlestickRenderObject._close = candles[0].close;
     if (index <= 0 && candlestickRenderObject._close != candles[0].close) {
       candlestickRenderObject._candles = candles;
       candlestickRenderObject._index = index;
@@ -50,9 +52,9 @@ class CandleStickWidget extends LeafRenderObjectWidget {
       candlestickRenderObject._bearColor = bearColor;
       candlestickRenderObject.markNeedsPaint();
     } else if (candlestickRenderObject._index != index ||
-        candlestickRenderObject._candleWidth != candleWidth ||
-        candlestickRenderObject._high != high ||
-        candlestickRenderObject._low != low) {
+      candlestickRenderObject._candleWidth != candleWidth ||
+      candlestickRenderObject._high != high ||
+      candlestickRenderObject._low != low) {
       candlestickRenderObject._candles = candles;
       candlestickRenderObject._index = index;
       candlestickRenderObject._candleWidth = candleWidth;
@@ -86,6 +88,7 @@ class CandleStickRenderObject extends RenderBox {
     Color bearColor,
   ) {
     _candles = candles;
+
     _index = index;
     _candleWidth = candleWidth;
     _low = low;
@@ -101,22 +104,24 @@ class CandleStickRenderObject extends RenderBox {
   }
 
   /// draws a single candle
-  void paintCandle(PaintingContext context, Offset offset, int index,
-      Candle candle, double range) {
+  void paintCandle(PaintingContext context, Offset offset, int index, Candle candle, double range, int indexData) {
     Color color = candle.isBull ? _bullColor : _bearColor;
-
     Paint paint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
+      ..strokeWidth = min(2,(_candleWidth >6) ?  max(0.5, _candleWidth/8) : max(0.5, _candleWidth/4));
+
 
     double x = size.width + offset.dx - (index + 0.5) * _candleWidth;
+
 
     context.canvas.drawLine(
       Offset(x, offset.dy + (_high - candle.high) / range),
       Offset(x, offset.dy + (_high - candle.low) / range),
       paint,
     );
+
+
 
     final double openCandleY = offset.dy + (_high - candle.open) / range;
     final double closeCandleY = offset.dy + (_high - candle.close) / range;
@@ -125,7 +130,7 @@ class CandleStickRenderObject extends RenderBox {
       context.canvas.drawLine(
         Offset(x, openCandleY),
         Offset(x, closeCandleY),
-        paint..strokeWidth = _candleWidth - 1,
+        paint..strokeWidth = (_candleWidth >6) ? _candleWidth/2 : _candleWidth*3/4,
       );
     } else {
       // if the candle body is too small
@@ -133,7 +138,7 @@ class CandleStickRenderObject extends RenderBox {
       context.canvas.drawLine(
         Offset(x, mid - 0.5),
         Offset(x, mid + 0.5),
-        paint..strokeWidth = _candleWidth - 1,
+        paint..strokeWidth = (_candleWidth >6) ? _candleWidth/2 : _candleWidth*3/4,
       );
     }
   }
@@ -141,11 +146,11 @@ class CandleStickRenderObject extends RenderBox {
   @override
   void paint(PaintingContext context, Offset offset) {
     double range = (_high - _low) / size.height;
-    for (int i = 0; (i + 1) * _candleWidth < size.width; i++) {
-      final value = i +_index;
+    for (int i = -1; (i + 1) * _candleWidth < size.width; i++) {
+      final value = i +_index ;
       if (value >= _candles.length || value < 0) continue;
       var candle = _candles[value];
-      paintCandle(context, offset, i, candle, range);
+      paintCandle(context, offset, i, candle, range, value);
     }
     _close = _candles[0].close;
     context.canvas.save();

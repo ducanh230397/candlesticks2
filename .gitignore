@@ -32,3 +32,4 @@ example/.idea/
 .idea/workspace.xml
 .packages
 example/pubspec.lock
+example/example.iml

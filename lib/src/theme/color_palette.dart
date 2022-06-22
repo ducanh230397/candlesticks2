@@ -24,7 +24,7 @@ class LightColorPalette {
   static const primaryRed = Color(0xFFF46666);
   static const secondaryRed = Color(0xFFF1A3A1);
   static const digalogColor = Color(0xFFFFFFFF);
-  static const hoverIndicatorBackgroundColor = Color(0xFF131722);
+  static const hoverIndicatorBackgroundColor = Color(0xFF333333);
   static const lightGold = Color(0xFF494537);
   static const gold = Color(0xFFF0B90A);
   static const hoverIndicatorTextColor = Color(0xFFFFFFFF);

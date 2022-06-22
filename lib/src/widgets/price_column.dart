@@ -2,6 +2,7 @@ import 'package:candlesticks/src/constant/view_constants.dart';
 import 'package:candlesticks/src/models/candle.dart';
 import 'package:candlesticks/src/theme/theme_data.dart';
 import 'package:candlesticks/src/utils/helper_functions.dart';
+import 'package:candlesticks/src/widgets/new_dash_line.dart';
 import 'package:flutter/material.dart';
 
 class PriceColumn extends StatefulWidget {
@@ -71,10 +72,17 @@ class _PriceColumnState extends State<PriceColumn> {
                       child: Center(
                         child: Row(
                           children: [
-                            Container(
-                              width: widget.width - PRICE_BAR_WIDTH,
-                              height: 0.3,
-                              color: Color(0x3F9AA0A5),
+                            // Container(
+                            //   width: widget.width - PRICE_BAR_WIDTH,
+                            //   height: 0.7,
+                            //   color: Theme.of(context).grayColor.withOpacity(0.35),
+                            // ),
+                            NewDashLine(
+                              direction: Axis.horizontal,
+                              color: Color(0x6600B14F),
+                              dashWidth: 7,
+                              dashSpace: 5,
+                              width: 0.7,
                             ),
                             Expanded(
                               child: Text(

@@ -41,4 +41,10 @@ class Candle {
         open = double.parse(json[1]),
         close = double.parse(json[4]),
         volume = double.parse(json[5]);
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return this.date.toIso8601String();
+  }
 }

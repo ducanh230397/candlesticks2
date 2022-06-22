@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List<Candle> candles = [];
   bool themeIsDark = false;
-  ChartController chartController = ChartController();
+  CandlestickChartController chartController = CandlestickChartController();
 
   @override
   void initState() {
