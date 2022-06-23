@@ -5,6 +5,7 @@ import 'package:candlesticks/src/theme/theme_data.dart';
 import 'package:candlesticks/src/utils/helper_functions.dart';
 import 'package:candlesticks/src/widgets/candle_info_text.dart';
 import 'package:candlesticks/src/widgets/candle_stick_widget.dart';
+import 'package:candlesticks/src/widgets/draw_selected_stock_time.dart';
 import 'package:candlesticks/src/widgets/draw_time.dart';
 import 'package:candlesticks/src/widgets/new_dash_line.dart';
 import 'package:candlesticks/src/widgets/price_column.dart';
@@ -107,7 +108,7 @@ class _MobileChartState extends State<MobileChart> {
           if(length >= 0)
           {
             List<Candle> inRangeCandles =
-                widget.candles.getRange(candlesStartIndex, length).toList();
+            widget.candles.getRange(candlesStartIndex, length).toList();
             candlesHighPrice = inRangeCandles.map((e) => e.high).reduce(max);
             candlesLowPrice = inRangeCandles.map((e) => e.low).reduce(min);
           }
@@ -158,8 +159,8 @@ class _MobileChartState extends State<MobileChart> {
                 final currentCandle = longPressX == null
                     ? null
                     : widget.candles[min(
-                        max((maxWidth - longPressX!) ~/ widget.candleWidth + widget.index, 0),
-                        widget.candles.length - 1)];
+                    max((maxWidth - longPressX!) ~/ widget.candleWidth + widget.index, 0),
+                    widget.candles.length - 1)];
                 return Container(
                   margin: const EdgeInsets.only(bottom: 10),
                   child: Stack(
@@ -200,7 +201,7 @@ class _MobileChartState extends State<MobileChart> {
                                   width: constraints.maxWidth,
                                   chartHeight: chartHeight,
                                   lastCandle: widget.candles[
-                                      widget.index < 0 ? 0 : (widget.index >= widget.candles.length ? widget.candles.length - 1 : widget.index)],
+                                  widget.index < 0 ? 0 : (widget.index >= widget.candles.length ? widget.candles.length - 1 : widget.index)],
 
                                   onScale: (delta) {
                                     setState(() {
@@ -215,41 +216,41 @@ class _MobileChartState extends State<MobileChart> {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        margin: EdgeInsets.only(bottom: 10),
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            right: BorderSide(
-                                              color:
-                                                  Color(0xFF9AA0A5),
-                                              width: 1,
-                                            ),
-                                            bottom: BorderSide(
-                                              color:
-                                                  Color(0x3F9AA0A5),
-                                              width: 1,
-                                            ),
-                                          ),
-                                        ),
-                                        child: ClipRRect(
-                                          child: AnimatedPadding(
-                                            duration: Duration(milliseconds: 300),
-                                            padding: EdgeInsets.only(
-                                                top: MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding + 14,
-                                                bottom: MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding - 14
-                                            ),
-                                            child: RepaintBoundary(
-                                              child: CandleStickWidget(
-                                                candles: widget.candles,
-                                                candleWidth: widget.candleWidth,
-                                                index: widget.index,
-                                                high: high,
-                                                low: low,
-                                                bearColor: Theme.of(context).primaryRed,
-                                                bullColor: Theme.of(context).primaryGreen,
+                                          margin: EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              right: BorderSide(
+                                                color:
+                                                Color(0xFF9AA0A5),
+                                                width: 1,
+                                              ),
+                                              bottom: BorderSide(
+                                                color:
+                                                Color(0x3F9AA0A5),
+                                                width: 1,
                                               ),
                                             ),
                                           ),
-                                        )
+                                          child: ClipRRect(
+                                            child: AnimatedPadding(
+                                              duration: Duration(milliseconds: 300),
+                                              padding: EdgeInsets.only(
+                                                  top: MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding + 14,
+                                                  bottom: MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding - 14
+                                              ),
+                                              child: RepaintBoundary(
+                                                child: CandleStickWidget(
+                                                  candles: widget.candles,
+                                                  candleWidth: widget.candleWidth,
+                                                  index: widget.index,
+                                                  high: high,
+                                                  low: low,
+                                                  bearColor: Theme.of(context).primaryRed,
+                                                  bullColor: Theme.of(context).primaryGreen,
+                                                ),
+                                              ),
+                                            ),
+                                          )
                                       ),
                                     ),
                                     SizedBox(
@@ -268,109 +269,125 @@ class _MobileChartState extends State<MobileChart> {
                       ),
                       longPressY != null
                           ? Positioned(
-                              top: longPressY! - 10,
-                              child: Row(
-                                children: [
-                                  NewDashLine(
-                                    direction: Axis.horizontal,
-                                    color: Color(0xFF333333),
-                                    dashWidth: 4,
-                                    dashSpace: 2,
-                                  ),
-                                  Container(
-                                    padding:EdgeInsets.symmetric(vertical: 2),
-                                    color: Theme.of(context)
-                                        .hoverIndicatorBackgroundColor,
-                                      child: Text(
-                                        longPressY! < maxHeight * 1
-                                            ? "  ${HelperFunctions.priceToString(
-                                                high - (longPressY! - 20) / (maxHeight * 1 - 40) * (high - low))}"
-                                            : "  ${HelperFunctions.addMetricPrefix(
-                                                HelperFunctions.getRoof(volumeHigh) * (1 - (longPressY! - maxHeight * 1 - 10) / (maxHeight * 0 - 10)))}",
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .hoverIndicatorTextColor,
-                                          fontSize: 14,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    width: PRICE_BAR_WIDTH,
-
-                                  ),
-                                ],
+                        top: longPressY! - 10,
+                        child: Row(
+                          children: [
+                            NewDashLine(
+                              direction: Axis.horizontal,
+                              color: Color(0xFF333333),
+                              dashWidth: 4,
+                              dashSpace: 2,
+                              height: constraints.maxWidth -PRICE_BAR_WIDTH,
+                            ),
+                            Container(
+                              padding:EdgeInsets.symmetric(vertical: 2),
+                              color: Theme.of(context)
+                                  .hoverIndicatorBackgroundColor,
+                              child: Text(
+                                longPressY! < maxHeight * 1
+                                    ? "  ${HelperFunctions.priceToString(
+                                    high - (longPressY! - 20) / (maxHeight * 1 - 40) * (high - low))}"
+                                    : "  ${HelperFunctions.addMetricPrefix(
+                                    HelperFunctions.getRoof(volumeHigh) * (1 - (longPressY! - maxHeight * 1 - 10) / (maxHeight * 0 - 10)))}",
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .hoverIndicatorTextColor,
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.left,
                               ),
-                            )
+                              width: PRICE_BAR_WIDTH,
+
+                            ),
+                          ],
+                        ),
+                      )
                           : Container(),
                       longPressX != null
                           ? Positioned(
-                              child: Container(
-                                width: widget.candleWidth,
-                                height: maxHeight-20,
-                                // color: Theme.of(context).gold.withOpacity(0.2),
-                                alignment: Alignment.center,
-                                child: NewDashLine(
+                        child: Container(
+                            width: widget.candleWidth,
+                            alignment: Alignment.center,
+                            child: Column(
+                              children: [
+                                NewDashLine(
                                   direction: Axis.vertical,
                                   color: Color(0xFF333333),
                                   dashWidth: 4,
                                   dashSpace: 2,
+                                  height: constraints.maxHeight - 40,
                                 ),
-
-                              ),
-                              right: (maxWidth - longPressX!) ~/ widget.candleWidth * widget.candleWidth + PRICE_BAR_WIDTH,
+                                DrawSelectedStockTime(date: currentCandle?.date ?? DateTime.now())
+                              ],
                             )
+
+                        ),
+                        right: (maxWidth - longPressX!) ~/ widget.candleWidth * widget.candleWidth + PRICE_BAR_WIDTH,
+                      )
                           : Container(),
                       tapY != null
                           ? Positioned(
-                            top: longPressY! - 10,
-                            child: Row(
-                              children: [
-                                NewDashLine(
-                                  direction: Axis.horizontal,
-                                  color: Color(0xFF333333),
-                                  dashWidth: 4,
-                                  dashSpace: 2,
-                                ),
-                                Container(
-                                  padding:EdgeInsets.symmetric(vertical: 2),
-                                  color: Theme.of(context)
-                                      .hoverIndicatorBackgroundColor,
-                                  child: Text(
-                                    longPressY! < maxHeight * 1
-                                        ? "  ${HelperFunctions.priceToString(
-                                        high - (longPressY! - 20) / (maxHeight * 1 - 40) * (high - low))}"
-                                        : "  ${HelperFunctions.addMetricPrefix(
-                                        HelperFunctions.getRoof(
-                                            volumeHigh) * (1 - (longPressY! - maxHeight * 1 - 10) / (maxHeight * 0 - 10)))}",
-                                    style: TextStyle(
-                                      color: Theme.of(context).hoverIndicatorTextColor,
-                                      fontSize: 14,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  width: PRICE_BAR_WIDTH,
-
-                                ),
-                              ],
+                        top: longPressY! - 10,
+                        child: Row(
+                          children: [
+                            NewDashLine(
+                              direction: Axis.horizontal,
+                              color: Color(0xFF333333),
+                              dashWidth: 4,
+                              dashSpace: 2,
+                              height: constraints.maxWidth  - PRICE_BAR_WIDTH ,
                             ),
-                          )
+                            Container(
+                              padding:EdgeInsets.symmetric(vertical: 2),
+                              color: Theme.of(context)
+                                  .hoverIndicatorBackgroundColor,
+                              child: Text(
+                                longPressY! < maxHeight * 1
+                                    ? "  ${HelperFunctions.priceToString(
+                                    high - (longPressY! - 20) / (maxHeight * 1 - 40) * (high - low))}"
+                                    : "  ${HelperFunctions.addMetricPrefix(
+                                    HelperFunctions.getRoof(
+                                        volumeHigh) * (1 - (longPressY! - maxHeight * 1 - 10) / (maxHeight * 0 - 10)))}",
+                                style: TextStyle(
+                                  color: Theme.of(context).hoverIndicatorTextColor,
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                              width: PRICE_BAR_WIDTH,
+
+                            ),
+                          ],
+                        ),
+                      )
                           : Container(),
                       tapX != null
                           ? Positioned(
-                            child: Container(
-                              width: widget.candleWidth,
-                              height: maxHeight-20,
-                              // color: Theme.of(context).gold.withOpacity(0.2),
-                              alignment: Alignment.center,
-                              child: NewDashLine(
+                        child: Container(
+                            width: widget.candleWidth,
+                            height: maxHeight-20,
+                            // color: Theme.of(context).gold.withOpacity(0.2),
+                            alignment: Alignment.center,
+                            child: Column(
+                              children: [
+                                NewDashLine(
                                   direction: Axis.vertical,
                                   color: Color(0xFF333333),
                                   dashWidth: 4,
                                   dashSpace: 2,
-                              ),
+                                  height: constraints.maxHeight,
+                                ),
+                                Container(
+                                  width: 10,
+                                  height: 10,
+                                  color: Colors.red,
+                                )
+                              ],
+                            )
 
-                            ),
-                            right: (maxWidth - longPressX!) ~/ widget.candleWidth * widget.candleWidth + PRICE_BAR_WIDTH,
-                          )
+                        ),
+                        right: (maxWidth - longPressX!) ~/ widget.candleWidth * widget.candleWidth + PRICE_BAR_WIDTH,
+                      )
                           : Container(),
                       Padding(
                         padding: const EdgeInsets.symmetric(

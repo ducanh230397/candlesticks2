@@ -52,12 +52,13 @@ class _PriceColumnState extends State<PriceColumn> {
       child: AbsorbPointer(
         child: Padding(
           padding:
-              EdgeInsets.symmetric(vertical: widget.additionalVerticalPadding),
+          EdgeInsets.symmetric(vertical: widget.additionalVerticalPadding),
           child: Stack(
             children: [
               AnimatedPositioned(
                 duration: Duration(milliseconds: 300),
                 top: MAIN_CHART_VERTICAL_PADDING - priceTileHeight / 2,
+                right: 0,
                 height: widget.chartHeight +
                     MAIN_CHART_VERTICAL_PADDING +
                     priceTileHeight / 2,
@@ -72,17 +73,13 @@ class _PriceColumnState extends State<PriceColumn> {
                       child: Center(
                         child: Row(
                           children: [
-                            // Container(
-                            //   width: widget.width - PRICE_BAR_WIDTH,
-                            //   height: 0.7,
-                            //   color: Theme.of(context).grayColor.withOpacity(0.35),
-                            // ),
                             NewDashLine(
                               direction: Axis.horizontal,
                               color: Color(0x6600B14F),
                               dashWidth: 7,
                               dashSpace: 5,
                               width: 0.7,
+                              height: widget.width - PRICE_BAR_WIDTH,
                             ),
                             Expanded(
                               child: Text(
