@@ -270,7 +270,7 @@ class _MobileChartState extends State<MobileChart> {
                       ),
                       longPressY != null
                           ? Positioned(
-                              top: longPressY! - 10,
+                              top: longPressY! - 12,
                               child: Row(
                                 children: [
                                   NewDashLine(
@@ -328,7 +328,7 @@ class _MobileChartState extends State<MobileChart> {
                           : Container(),
                       tapY != null
                           ? Positioned(
-                            top: longPressY! - 10,
+                            top: longPressY! - 12,
                             child: Row(
                               children: [
                                 NewDashLine(
@@ -398,7 +398,7 @@ class _MobileChartState extends State<MobileChart> {
                             : null,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 50, bottom: 20),
+                        padding: const EdgeInsets.only(right: 50, bottom: 30),
                         child: GestureDetector(
                           onLongPressEnd: (_) {
                             setState(() {
@@ -430,7 +430,7 @@ class _MobileChartState extends State<MobileChart> {
                               (LongPressMoveUpdateDetails details) {
                             setState(() {
                               longPressX = details.localPosition.dx;
-                              longPressY = details.localPosition.dy;
+                              longPressY = min(details.localPosition.dy, constraints.maxHeight - 40);
                             });
                           },
                           onTapDown: (details){
