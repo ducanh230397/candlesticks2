@@ -108,12 +108,14 @@ class _PriceColumnState extends State<PriceColumn> {
                 ),
                 child: Row(
                   children: [
-                    Container(
-                      width: widget.width,
-                      height: 1,
-                      color: widget.lastCandle.isBull
-                          ? Theme.of(context).primaryGreen
-                          : Theme.of(context).primaryRed,
+                    Transform.translate(offset: Offset(0, -1),
+                      child: Container(
+                        width: widget.width,
+                        height: 1,
+                        color: widget.lastCandle.isBull
+                            ? Theme.of(context).primaryGreen
+                            : Theme.of(context).primaryRed,
+                      ),
                     ),
                     Container(
                       padding:EdgeInsets.symmetric(vertical: 0) ,
