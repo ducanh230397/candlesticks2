@@ -1,6 +1,7 @@
 
 import 'package:candlesticks/src/models/candle.dart';
 import 'package:flutter/material.dart';
+import '../constant/view_constants.dart';
 import '../models/candle.dart';
 
 class DrawTime extends LeafRenderObjectWidget {
@@ -50,7 +51,7 @@ class CandleStickRenderObject extends RenderBox {
   late int _index;
   late double _candleWidth;
   late double _close;
-  final double bottomHeight = 30;
+  final double bottomHeight = DATE_BAR_HEIGHT;
 
 
   CandleStickRenderObject(
@@ -145,32 +146,32 @@ class CandleStickRenderObject extends RenderBox {
       if(indexData < _candles.length){
         if(_candleWidth <= 40 && _candleWidth > 30  && indexData % 2 == 0){
           context.canvas.drawPath(path, line);
-          dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , date_height));
+          dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , date_height + 3));
         }
         else if(_candleWidth <= 30 && _candleWidth >= 12  && indexData % 5 == 0){
           context.canvas.drawPath(path, line);
-          dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , date_height));
+          dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , date_height + 3));
         }
         else if(indexData < _candles.length - 1) {
           if(indexData == 0 && _candles[indexData].date.day < 6)
             {
               context.canvas.drawPath(path, line);
               monthTextPainter.paint(context.canvas,
-                  Offset(x - monthTextPainter.width / 2, date_height));
+                  Offset(x - monthTextPainter.width / 2, date_height + 3));
             }
           else if( _candles[indexData].date.month != _candles[indexData +1].date.month ) {
               if (_candleWidth < 12 && _candleWidth >= 4) {
                 context.canvas.drawPath(path, line);
                 monthTextPainter.paint(context.canvas,
-                    Offset(x - monthTextPainter.width / 2, date_height));
+                    Offset(x - monthTextPainter.width / 2, date_height + 3));
               } else if (_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month - current_month) % 2 == 0) {
                 context.canvas.drawPath(path, line);
                 monthTextPainter.paint(context.canvas,
-                    Offset(x - monthTextPainter.width / 2, date_height));
+                    Offset(x - monthTextPainter.width / 2, date_height + 3));
               } else if (_candleWidth == 1 && (_candles[indexData].date.month - current_month) % 3 == 0) {
                 context.canvas.drawPath(path, line);
                 monthTextPainter.paint(context.canvas,
-                    Offset(x - monthTextPainter.width / 2, date_height));
+                    Offset(x - monthTextPainter.width / 2, date_height + 3));
               }
             }
         }
@@ -182,7 +183,7 @@ class CandleStickRenderObject extends RenderBox {
                 {
                   context.canvas.drawPath(path, line);
                   monthTextPainter.paint(context.canvas,
-                      Offset(x - monthTextPainter.width / 2, date_height));
+                      Offset(x - monthTextPainter.width / 2, date_height + 3));
                 }
       }
     }

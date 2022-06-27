@@ -172,38 +172,6 @@ class _CandlesticksState extends State<Candlesticks> {
                     index: index,
                   );
                 },
-              child: Container(
-                width: 300,
-                height: 300,
-                color: Colors.red,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                          child: ClipRRect(
-                            child: AnimatedPadding(
-                              duration: Duration(milliseconds: 300),
-                              padding: EdgeInsets.only(
-                                  top: MAIN_CHART_VERTICAL_PADDING  + 14,
-                                  bottom: MAIN_CHART_VERTICAL_PADDING  - 14
-                              ),
-                              child: RepaintBoundary(
-                                child: DrawTime(
-                                  candles: widget.candles,
-                                  candleWidth: candleWidth,
-                                  index: index,
-                                ),
-                              ),
-                            ),
-                          )
-                      ),
-                    ),
-                    SizedBox(
-                      width: PRICE_BAR_WIDTH,
-                    ),
-                  ],
-                ),
-              ),
             ),
           ),
       ],

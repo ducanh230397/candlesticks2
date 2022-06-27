@@ -46,7 +46,7 @@ class PaintDrawTime extends CustomPainter {
    var panelWidth =  textPainter.width;
     canvas.drawRect(Offset(-4 - panelWidth / 2, 0) &  Size(panelWidth + 9, 22), paint);
 
-    final offset = Offset(-panelWidth /2, 0);
+    final offset = Offset(-panelWidth /2, 3);
     textPainter.paint(canvas, offset);
 
 

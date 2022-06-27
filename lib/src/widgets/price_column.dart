@@ -52,7 +52,7 @@ class _PriceColumnState extends State<PriceColumn> {
       child: AbsorbPointer(
         child: Padding(
           padding:
-          EdgeInsets.symmetric(vertical: widget.additionalVerticalPadding),
+              EdgeInsets.symmetric(vertical: widget.additionalVerticalPadding),
           child: Stack(
             children: [
               AnimatedPositioned(
@@ -109,7 +109,14 @@ class _PriceColumnState extends State<PriceColumn> {
                 child: Row(
                   children: [
                     Container(
-                      padding:EdgeInsets.symmetric(vertical: 2) ,
+                      width: widget.width,
+                      height: 1,
+                      color: widget.lastCandle.isBull
+                          ? Theme.of(context).primaryGreen
+                          : Theme.of(context).primaryRed,
+                    ),
+                    Container(
+                      padding:EdgeInsets.symmetric(vertical: 0) ,
                       color: widget.lastCandle.isBull
                           ? Theme.of(context).primaryGreen
                           : Theme.of(context).primaryRed,
