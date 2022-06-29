@@ -63,7 +63,7 @@ class Candlesticks extends StatefulWidget {
 class _CandlesticksState extends State<Candlesticks> {
   /// index of the newest candle to be displayed
   /// changes when user scrolls along the chart
-  static final  defaultIndex = -2;
+  static final  defaultIndex = -4;
   int index = defaultIndex;
   double lastX = 0;
   int lastIndex = defaultIndex;
@@ -86,6 +86,7 @@ class _CandlesticksState extends State<Candlesticks> {
         index= widget.controller?.index?? 0;
       });
     });
+    widget.controller?.setIndex(0);
   }
 
   @override
