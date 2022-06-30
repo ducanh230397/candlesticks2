@@ -175,7 +175,7 @@ class CandleStickRenderObject extends RenderBox {
               }
             }
         }
-        else if(_candles[indexData].date.day > 20 &&
+        else if(_candles[indexData].date.day < 6 &&
              ((_candleWidth <= 40 && _candleWidth > 30  && indexData % 2 == 0) ||
               (_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month - current_month) % 2 == 0) ||
               (_candleWidth == 1 && (_candles[indexData].date.month - current_month) % 3 == 0)
