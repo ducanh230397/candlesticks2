@@ -71,6 +71,8 @@ class _CandlesticksState extends State<Candlesticks> {
   /// candleWidth controls the width of the single candles.
   ///  range: [2...10]
   double candleWidth = 40;
+  double scaleWidth = 40;
+
 
   /// true when widget.onLoadMoreCandles is fetching new candles.
   bool isCallingLoadMore = false;
@@ -84,6 +86,8 @@ class _CandlesticksState extends State<Candlesticks> {
       setState(() {
         candleWidth = (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1;
         index= widget.controller?.index?? 0;
+        scaleWidth = candleWidth;
+
       });
     });
     widget.controller?.setIndex(0);
@@ -133,10 +137,9 @@ class _CandlesticksState extends State<Candlesticks> {
                 return MobileChart(
                     chartAdjust: widget.chartAdjust,
                     onScaleUpdate: (double scale) {
-                      scale = max(0.90, scale);
-                      scale = min(1.1, scale);
+                      print(scale);
                       setState(() {
-                        candleWidth *= scale;
+                        candleWidth = scale * scaleWidth;
                         candleWidth = min(candleWidth, 40);
                         candleWidth = max(
                             candleWidth,
@@ -146,6 +149,7 @@ class _CandlesticksState extends State<Candlesticks> {
                     },
                     onPanEnd: () {
                       lastIndex = index;
+                      scaleWidth = candleWidth;
                     },
                     onHorizontalDragUpdate: (double x) {
                       setState(() {
