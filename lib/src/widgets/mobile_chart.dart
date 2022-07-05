@@ -401,10 +401,10 @@ class _MobileChartState extends State<MobileChart> {
                         padding: const EdgeInsets.only(right: 50, bottom: 30),
                         child: GestureDetector(
                           onLongPressEnd: (_) {
-                            setState(() {
-                              longPressX = null;
-                              longPressY = null;
-                            });
+                            // setState(() {
+                            //   longPressX = null;
+                            //   longPressY = null;
+                            // });
                           },
                           onScaleEnd: (_) {
                             widget.onPanEnd();
