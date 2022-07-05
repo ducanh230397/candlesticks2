@@ -153,13 +153,7 @@ class CandleStickRenderObject extends RenderBox {
           dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , date_height + 3));
         }
         else if(indexData < _candles.length - 1) {
-          if(indexData == 0 && _candles[indexData].date.day < 6)
-            {
-              context.canvas.drawPath(path, line);
-              monthTextPainter.paint(context.canvas,
-                  Offset(x - monthTextPainter.width / 2, date_height + 3));
-            }
-          else if( _candles[indexData].date.month != _candles[indexData +1].date.month ) {
+          if( _candles[indexData].date.month != _candles[indexData +1].date.month ) {
               if (_candleWidth < 12 && _candleWidth >= 4) {
                 context.canvas.drawPath(path, line);
                 monthTextPainter.paint(context.canvas,
