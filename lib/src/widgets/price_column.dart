@@ -64,6 +64,7 @@ class _PriceColumnState extends State<PriceColumn> {
                     priceTileHeight / 2,
                 width: widget.width,
                 child: ListView(
+                  padding: EdgeInsets.zero,
                   controller: scrollController,
                   children: List<Widget>.generate(20, (i) {
                     return AnimatedContainer(

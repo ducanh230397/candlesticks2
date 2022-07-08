@@ -205,11 +205,11 @@ class _MobileChartState extends State<MobileChart> {
                                       widget.index < 0 ? 0 : (widget.index >= widget.candles.length ? widget.candles.length - 1 : widget.index)],
 
                                   onScale: (delta) {
-                                    setState(() {
-                                      additionalVerticalPadding += delta;
-                                      additionalVerticalPadding = min(maxHeight / 4, additionalVerticalPadding);
-                                      additionalVerticalPadding = max(0, additionalVerticalPadding);
-                                    });
+                                    // setState(() {
+                                    //   additionalVerticalPadding += delta;
+                                    //   additionalVerticalPadding = min(maxHeight / 4, additionalVerticalPadding);
+                                    //   additionalVerticalPadding = max(0, additionalVerticalPadding);
+                                    // });
                                   },
                                   additionalVerticalPadding: additionalVerticalPadding,
                                 ),
