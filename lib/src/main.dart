@@ -63,10 +63,11 @@ class Candlesticks extends StatefulWidget {
 class _CandlesticksState extends State<Candlesticks> {
   /// index of the newest candle to be displayed
   /// changes when user scrolls along the chart
-  static final  defaultIndex = -4;
-  int index = defaultIndex;
+  static int  _defaultIndex = -2;
+  int  defaultIndex = _defaultIndex;
+  int index = _defaultIndex;
   double lastX = 0;
-  int lastIndex = defaultIndex;
+  int lastIndex = _defaultIndex;
 
   /// candleWidth controls the width of the single candles.
   ///  range: [2...10]
@@ -82,9 +83,11 @@ class _CandlesticksState extends State<Candlesticks> {
     // TODO: implement initState
     super.initState();
     candleWidth = (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1;
+    defaultIndex = (widget.candles.length <=7) ? -2 : (widget.candles.length <=30) ? -4 : (widget.candles.length <= 90) ? -8 : (widget.candles.length <=180) ? -16 : -16;
     widget.controller?.addListener(() {
       setState(() {
         candleWidth = (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1;
+        defaultIndex = (widget.candles.length <=7) ? -2 : (widget.candles.length <=30) ? -4 : (widget.candles.length <= 90) ? -8 : (widget.candles.length <=180) ? -16 : -16;
         index= widget.controller?.index?? 0;
         scaleWidth = candleWidth;
 
@@ -102,17 +105,20 @@ class _CandlesticksState extends State<Candlesticks> {
           displayZoomActions: widget.displayZoomActions,
           onZoomInPressed: () {
             setState(() {
-              candleWidth += 2;
-              candleWidth = min(candleWidth, 40);
+              scaleWidth += 2;
+              scaleWidth = min(scaleWidth, 40);
+              candleWidth = scaleWidth;
             });
           },
           onZoomOutPressed: () {
             setState(() {
-              candleWidth -= 2;
-              candleWidth = max(
-                  candleWidth,
+              scaleWidth -= 2;
+              scaleWidth = max(
+                  scaleWidth,
                   (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1
               );
+              defaultIndex = (widget.candles.length <=7) ? -2 : (widget.candles.length <=30) ? -4 : (widget.candles.length <= 90) ? -8 : (widget.candles.length <=180) ? -16 : -24;
+              candleWidth = scaleWidth;
             });
           },
           children: widget.actions,

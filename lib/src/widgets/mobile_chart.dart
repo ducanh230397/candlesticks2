@@ -107,10 +107,16 @@ class _MobileChartState extends State<MobileChart> {
           }
           if(length >= 0)
           {
-            List<Candle> inRangeCandles =
-            widget.candles.getRange(candlesStartIndex, length).toList();
-            candlesHighPrice = inRangeCandles.map((e) => e.high).reduce(max);
-            candlesLowPrice = inRangeCandles.map((e) => e.low).reduce(min);
+            try {
+              List<Candle> inRangeCandles =
+              widget.candles.getRange(candlesStartIndex, length).toList();
+              candlesHighPrice = inRangeCandles.map((e) => e.high).reduce(max);
+              candlesLowPrice = inRangeCandles.map((e) => e.low).reduce(min);
+            } catch(e) {
+              candlesHighPrice = 0;
+              candlesLowPrice = 0;
+
+            }
           }
           else{
             candlesHighPrice = widget.candles[0].high;
