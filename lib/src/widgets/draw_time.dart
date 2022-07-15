@@ -74,15 +74,15 @@ class CandleStickRenderObject extends RenderBox {
     double startY = height;
 
 
-      while (startY >0 + dashWidth ) {
+    while (startY >0 + dashWidth ) {
 
-        dashLinePath.moveTo(x, startY);
-        dashLinePath.lineTo(x, startY - dashWidth);
+      dashLinePath.moveTo(x, startY);
+      dashLinePath.lineTo(x, startY - dashWidth);
 
-        startY -= dashWidth + dashSpace;
-      }
+      startY -= dashWidth + dashSpace;
+    }
 
-      return dashLinePath;
+    return dashLinePath;
 
   }
 
@@ -108,10 +108,10 @@ class CandleStickRenderObject extends RenderBox {
       final dateText = TextSpan(
         text: _candles[indexData].date.day.toString() + "/" +_candles[indexData].date.month.toString(),
         style:  TextStyle(
-          color: Color(0xFF9AA0A5),
-          fontWeight: FontWeight.w400,
-          fontSize: 14,
-          height: 16/14
+            color: Color(0xFF9AA0A5),
+            fontWeight: FontWeight.w400,
+            fontSize: 14,
+            height: 16/14
         ),
       );
       final dateTextPainter = TextPainter(
@@ -139,6 +139,22 @@ class CandleStickRenderObject extends RenderBox {
         maxWidth: size.width,
       );
 
+      final yearText = TextSpan(
+        text: "T"+_candles[indexData].date.month.toString() + "/" +_candles[indexData].date.year.toString(),
+        style:  TextStyle(
+          color: Color(0xFF9AA0A5),
+          fontSize: 12,
+        ),
+      );
+      final yearTextPainter = TextPainter(
+        text: yearText,
+        textDirection: TextDirection.ltr,
+      );
+      yearTextPainter.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
+
       var endLine = size.height - bottomHeight ;
       final int current_month = _candles[0].date.month;
       var path = getPath(endLine, x);
@@ -154,31 +170,35 @@ class CandleStickRenderObject extends RenderBox {
         }
         else if(indexData < _candles.length - 1) {
           if( _candles[indexData].date.month != _candles[indexData +1].date.month ) {
-              if (_candleWidth < 12 && _candleWidth >= 4) {
-                context.canvas.drawPath(path, line);
-                monthTextPainter.paint(context.canvas,
-                    Offset(x - monthTextPainter.width / 2, date_height + 3));
-              } else if (_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month - current_month) % 2 == 0) {
-                context.canvas.drawPath(path, line);
-                monthTextPainter.paint(context.canvas,
-                    Offset(x - monthTextPainter.width / 2, date_height + 3));
-              } else if (_candleWidth == 1 && (_candles[indexData].date.month - current_month) % 3 == 0) {
-                context.canvas.drawPath(path, line);
-                monthTextPainter.paint(context.canvas,
-                    Offset(x - monthTextPainter.width / 2, date_height + 3));
-              }
+            if (_candleWidth < 12 && _candleWidth >= 4) {
+              context.canvas.drawPath(path, line);
+              _candles[indexData].date.month == 1
+                  ? yearTextPainter.paint(context.canvas, Offset(x - yearTextPainter.width / 2, date_height + 3))
+                  : monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width / 2, date_height + 3));
+            } else if (_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month - current_month) % 2 == 0) {
+              context.canvas.drawPath(path, line);
+              _candles[indexData].date.month == 1 || _candles[indexData].date.month == 2
+                  ? yearTextPainter.paint(context.canvas, Offset(x - yearTextPainter.width / 2, date_height + 3))
+                  : monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width / 2, date_height + 3));
+            } else if (_candleWidth == 1 && (_candles[indexData].date.month - current_month) % 3 == 0) {
+              context.canvas.drawPath(path, line);
+              _candles[indexData].date.month == 1|| _candles[indexData].date.month == 2 || _candles[indexData].date.month == 3
+                  ? yearTextPainter.paint(context.canvas, Offset(x - yearTextPainter.width / 2, date_height + 3))
+                  : monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width / 2, date_height + 3));
             }
+          }
         }
         else if(_candles[indexData].date.day < 6 &&
-             ((_candleWidth <= 40 && _candleWidth > 30  && indexData % 2 == 0) ||
-              (_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month - current_month) % 2 == 0) ||
-              (_candleWidth == 1 && (_candles[indexData].date.month - current_month) % 3 == 0)
-             ))
-                {
-                  context.canvas.drawPath(path, line);
-                  monthTextPainter.paint(context.canvas,
-                      Offset(x - monthTextPainter.width / 2, date_height + 3));
-                }
+            ((_candleWidth <= 40 && _candleWidth > 30  && indexData % 2 == 0) ||
+                (_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month - current_month) % 2 == 0) ||
+                (_candleWidth == 1 && (_candles[indexData].date.month - current_month) % 3 == 0)
+            ))
+        {
+          context.canvas.drawPath(path, line);
+          _candles[indexData].date.month == 1
+              ? monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width / 2, date_height + 3))
+              : yearTextPainter.paint(context.canvas, Offset(x - yearTextPainter.width / 2, date_height + 3));
+        }
       }
     }
 
