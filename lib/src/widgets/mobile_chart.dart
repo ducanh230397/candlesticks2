@@ -39,6 +39,8 @@ class MobileChart extends StatefulWidget {
   /// How chart price range will be adjusted when moving chart
   final ChartAdjust chartAdjust;
 
+  final bool? displayCandleInfoText;
+
   final void Function(double) onPanDown;
   final void Function() onPanEnd;
 
@@ -54,6 +56,7 @@ class MobileChart extends StatefulWidget {
     required this.onPanDown,
     required this.onPanEnd,
     required this.onReachEnd,
+    this.displayCandleInfoText,
   });
 
   @override
@@ -400,7 +403,7 @@ class _MobileChartState extends State<MobileChart> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 4, horizontal: 12),
                         child: currentCandle != null
-                            ? CandleInfoText(candle: currentCandle)
+                            ? widget.displayCandleInfoText == true ? CandleInfoText(candle: currentCandle) : null
                             : null,
                       ),
                       Padding(

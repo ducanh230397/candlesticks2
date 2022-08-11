@@ -43,7 +43,7 @@ class Candlesticks extends StatefulWidget {
 
   final CandlestickChartController? controller;
 
-  final bool? displayToolbar;
+  final bool? displayCandleInfoText;
 
   Candlesticks(
       {Key? key,
@@ -54,7 +54,7 @@ class Candlesticks extends StatefulWidget {
       this.displayZoomActions = true,
       this.controller,
       this.loadingWidget,
-      this.displayToolbar
+      this.displayCandleInfoText
       })
       : assert(candles.length == 0 || candles.length > 1,
             "Please provide at least 2 candles"),
@@ -105,7 +105,6 @@ class _CandlesticksState extends State<Candlesticks> {
 
     return Column(
       children: [
-        if(widget.displayToolbar == true)
         ToolBar(
           displayZoomActions: widget.displayZoomActions,
           onZoomInPressed: () {
@@ -186,6 +185,7 @@ class _CandlesticksState extends State<Candlesticks> {
                     candleWidth: width,
                     candles: widget.candles,
                     index: index,
+                    displayCandleInfoText: widget.displayCandleInfoText,
                   );
                 },
             ),
