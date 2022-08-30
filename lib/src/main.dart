@@ -2,14 +2,11 @@ import 'dart:math';
 import 'package:candlesticks/src/controller/candlestick_chart_controller.dart';
 import 'package:candlesticks/src/models/candle.dart';
 import 'package:candlesticks/src/theme/theme_data.dart';
-import 'package:candlesticks/src/widgets/draw_time.dart';
 import 'package:candlesticks/src/widgets/toolbar_action.dart';
 import 'package:candlesticks/src/widgets/mobile_chart.dart';
 import 'package:candlesticks/src/widgets/toolbar.dart';
 import 'package:flutter/material.dart';
-import 'constant/view_constants.dart';
 import 'models/candle.dart';
-import 'dart:io' show Platform;
 
 enum ChartAdjust {
   /// Will adjust chart size by max and min value from visible area
@@ -54,8 +51,7 @@ class Candlesticks extends StatefulWidget {
       this.displayZoomActions = true,
       this.controller,
       this.loadingWidget,
-      this.displayCandleInfoText
-      })
+      this.displayCandleInfoText})
       : assert(candles.length == 0 || candles.length > 1,
             "Please provide at least 2 candles"),
         super(key: key);
@@ -67,8 +63,8 @@ class Candlesticks extends StatefulWidget {
 class _CandlesticksState extends State<Candlesticks> {
   /// index of the newest candle to be displayed
   /// changes when user scrolls along the chart
-  static int  _defaultIndex = -2;
-  int  defaultIndex = _defaultIndex;
+  static int _defaultIndex = -1;
+  int defaultIndex = _defaultIndex;
   int index = _defaultIndex;
   double lastX = 0;
   int lastIndex = _defaultIndex;
@@ -78,7 +74,6 @@ class _CandlesticksState extends State<Candlesticks> {
   double candleWidth = 40;
   double scaleWidth = 40;
 
-
   /// true when widget.onLoadMoreCandles is fetching new candles.
   bool isCallingLoadMore = false;
 
@@ -86,15 +81,46 @@ class _CandlesticksState extends State<Candlesticks> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    candleWidth = (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1;
-    defaultIndex = (widget.candles.length <=7) ? -2 : (widget.candles.length <=30) ? -4 : (widget.candles.length <= 90) ? -8 : (widget.candles.length <=180) ? -16 : -16;
+    candleWidth = (widget.candles.length <= 7)
+        ? 40
+        : (widget.candles.length <= 30)
+            ? 12
+            : (widget.candles.length <= 90)
+                ? 4
+                : (widget.candles.length <= 180)
+                    ? 2
+                    : 1;
+    defaultIndex = (widget.candles.length <= 7)
+        ? -1
+        : (widget.candles.length <= 30)
+            ? -4
+            : (widget.candles.length <= 90)
+                ? -8
+                : (widget.candles.length <= 180)
+                    ? -16
+                    : -24;
     widget.controller?.addListener(() {
       setState(() {
-        candleWidth = (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1;
-        defaultIndex = (widget.candles.length <=7) ? -2 : (widget.candles.length <=30) ? -4 : (widget.candles.length <= 90) ? -8 : (widget.candles.length <=180) ? -16 : -16;
-        index= widget.controller?.index?? 0;
+        candleWidth = (widget.candles.length <= 7)
+            ? 40
+            : (widget.candles.length <= 30)
+                ? 12
+                : (widget.candles.length <= 90)
+                    ? 4
+                    : (widget.candles.length <= 180)
+                        ? 2
+                        : 1;
+        defaultIndex = (widget.candles.length <= 7)
+            ? -1
+            : (widget.candles.length <= 30)
+                ? -4
+                : (widget.candles.length <= 90)
+                    ? -8
+                    : (widget.candles.length <= 180)
+                        ? -16
+                        : -24;
+        index = widget.controller?.index ?? 0;
         scaleWidth = candleWidth;
-
       });
     });
     widget.controller?.setIndex(0);
@@ -102,7 +128,6 @@ class _CandlesticksState extends State<Candlesticks> {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         ToolBar(
@@ -119,15 +144,29 @@ class _CandlesticksState extends State<Candlesticks> {
               scaleWidth -= 2;
               scaleWidth = max(
                   scaleWidth,
-                  (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1
-              );
-              defaultIndex = (widget.candles.length <=7) ? -2 : (widget.candles.length <=30) ? -4 : (widget.candles.length <= 90) ? -8 : (widget.candles.length <=180) ? -16 : -24;
+                  (widget.candles.length <= 7)
+                      ? 40
+                      : (widget.candles.length <= 30)
+                          ? 12
+                          : (widget.candles.length <= 90)
+                              ? 4
+                              : (widget.candles.length <= 180)
+                                  ? 2
+                                  : 1);
+              defaultIndex = (widget.candles.length <= 7)
+                  ? -1
+                  : (widget.candles.length <= 30)
+                      ? -4
+                      : (widget.candles.length <= 90)
+                          ? -8
+                          : (widget.candles.length <= 180)
+                              ? -16
+                              : -24;
               candleWidth = scaleWidth;
             });
           },
           children: widget.actions,
         ),
-
         if (widget.candles.length == 0)
           Expanded(
             child: Center(
@@ -143,51 +182,57 @@ class _CandlesticksState extends State<Candlesticks> {
               tween: Tween(begin: 6.toDouble(), end: candleWidth),
               duration: Duration(milliseconds: 120),
               builder: (_, double width, __) {
-
                 return MobileChart(
-                    chartAdjust: widget.chartAdjust,
-                    onScaleUpdate: (double scale) {
-                      print(scale);
-                      setState(() {
-                        candleWidth = scale * scaleWidth;
-                        candleWidth = min(candleWidth, 40);
-                        candleWidth = max(
-                            candleWidth,
-                            (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1
-                        );
+                  chartAdjust: widget.chartAdjust,
+                  onScaleUpdate: (double scale) {
+                    print(scale);
+                    setState(() {
+                      candleWidth = scale * scaleWidth;
+                      candleWidth = min(candleWidth, 40);
+                      candleWidth = max(
+                          candleWidth,
+                          (widget.candles.length <= 7)
+                              ? 40
+                              : (widget.candles.length <= 30)
+                                  ? 12
+                                  : (widget.candles.length <= 90)
+                                      ? 4
+                                      : (widget.candles.length <= 180)
+                                          ? 2
+                                          : 1);
+                    });
+                  },
+                  onPanEnd: () {
+                    lastIndex = index;
+                    scaleWidth = candleWidth;
+                  },
+                  onHorizontalDragUpdate: (double x) {
+                    setState(() {
+                      x = x - lastX;
+                      index = lastIndex + x ~/ candleWidth;
+                      index = max(index, defaultIndex);
+                      index = min(index, widget.candles.length - 1);
+                    });
+                  },
+                  onPanDown: (double value) {
+                    lastX = value;
+                    lastIndex = index;
+                  },
+                  onReachEnd: () {
+                    if (isCallingLoadMore == false &&
+                        widget.onLoadMoreCandles != null) {
+                      isCallingLoadMore = true;
+                      widget.onLoadMoreCandles!().then((_) {
+                        isCallingLoadMore = false;
                       });
-                    },
-                    onPanEnd: () {
-                      lastIndex = index;
-                      scaleWidth = candleWidth;
-                    },
-                    onHorizontalDragUpdate: (double x) {
-                      setState(() {
-                        x = x - lastX;
-                        index = lastIndex + x ~/ candleWidth;
-                        index = max(index, defaultIndex);
-                        index = min(index, widget.candles.length - 1);
-                      });
-                    },
-                    onPanDown: (double value) {
-                      lastX = value;
-                      lastIndex = index;
-                    },
-                    onReachEnd: () {
-                      if (isCallingLoadMore == false &&
-                          widget.onLoadMoreCandles != null) {
-                        isCallingLoadMore = true;
-                        widget.onLoadMoreCandles!().then((_) {
-                          isCallingLoadMore = false;
-                        });
-                      }
-                    },
-                    candleWidth: width,
-                    candles: widget.candles,
-                    index: index,
-                    displayCandleInfoText: widget.displayCandleInfoText,
-                  );
-                },
+                    }
+                  },
+                  candleWidth: width,
+                  candles: widget.candles,
+                  index: index,
+                  displayCandleInfoText: widget.displayCandleInfoText,
+                );
+              },
             ),
           ),
       ],
