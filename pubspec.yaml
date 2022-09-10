@@ -1,6 +1,6 @@
 name: candlesticks
 description: A high-performance full featured candlesticks chart for all platforms.
-version: 3.0.8
+version: 3.0.9
 homepage: https://github.com/r-mzy47/candlesticks
 
 environment:

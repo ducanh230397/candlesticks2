@@ -99,31 +99,39 @@ class _CandlesticksState extends State<Candlesticks> {
                 : (widget.candles.length <= 180)
                     ? -16
                     : -24;
-    widget.controller?.addListener(() {
-      setState(() {
-        candleWidth = (widget.candles.length <= 7)
-            ? 40
-            : (widget.candles.length <= 30)
-                ? 12
-                : (widget.candles.length <= 90)
-                    ? 4
-                    : (widget.candles.length <= 180)
-                        ? 2
-                        : 1;
-        defaultIndex = (widget.candles.length <= 7)
-            ? -1
-            : (widget.candles.length <= 30)
-                ? -4
-                : (widget.candles.length <= 90)
-                    ? -8
-                    : (widget.candles.length <= 180)
-                        ? -16
-                        : -24;
-        index = widget.controller?.index ?? 0;
-        scaleWidth = candleWidth;
-      });
-    });
+    widget.controller?.addListener(_listenner);
     widget.controller?.setIndex(0);
+  }
+
+  void _listenner() {
+    setState(() {
+      candleWidth = (widget.candles.length <= 7)
+          ? 40
+          : (widget.candles.length <= 30)
+              ? 12
+              : (widget.candles.length <= 90)
+                  ? 4
+                  : (widget.candles.length <= 180)
+                      ? 2
+                      : 1;
+      defaultIndex = (widget.candles.length <= 7)
+          ? -1
+          : (widget.candles.length <= 30)
+              ? -4
+              : (widget.candles.length <= 90)
+                  ? -8
+                  : (widget.candles.length <= 180)
+                      ? -16
+                      : -24;
+      index = widget.controller?.index ?? 0;
+      scaleWidth = candleWidth;
+    });
+  }
+
+  @override
+  void dispose() {
+    widget.controller?.removeListener(_listenner);
+    super.dispose();
   }
 
   @override
