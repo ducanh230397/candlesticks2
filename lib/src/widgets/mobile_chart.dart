@@ -289,7 +289,8 @@ class _MobileChartState extends State<MobileChart> {
                                     dashSpace: 2,
                                     height: constraints.maxWidth -PRICE_BAR_WIDTH,
                                   ),
-                                  Container(
+                                  if(priceScale >= 0.01)
+                                    Container(
                                     padding:EdgeInsets.symmetric(vertical: 2),
                                     color: Theme.of(context)
                                         .hoverIndicatorBackgroundColor,
@@ -347,7 +348,8 @@ class _MobileChartState extends State<MobileChart> {
                                   dashSpace: 2,
                                   height: constraints.maxWidth  - PRICE_BAR_WIDTH ,
                                 ),
-                                Container(
+                                if(priceScale >= 0.01)
+                                  Container(
                                   padding:EdgeInsets.symmetric(vertical: 2),
                                   color: Theme.of(context)
                                       .hoverIndicatorBackgroundColor,

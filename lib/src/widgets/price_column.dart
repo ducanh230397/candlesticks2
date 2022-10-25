@@ -45,8 +45,7 @@ class _PriceColumnState extends State<PriceColumn> {
   Widget build(BuildContext context) {
     final double priceTileHeight =
         widget.chartHeight / ((widget.high - widget.low) / widget.priceScale);
-    var priceCount = 20;
-    if (widget.high == widget.low) priceCount = 0;
+    var priceCount = widget.priceScale < 0.01 ? 0 : 20;
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         widget.onScale(details.delta.dy);
