@@ -45,6 +45,8 @@ class _PriceColumnState extends State<PriceColumn> {
   Widget build(BuildContext context) {
     final double priceTileHeight =
         widget.chartHeight / ((widget.high - widget.low) / widget.priceScale);
+    var priceCount = 20;
+    if (widget.high == widget.low) priceCount = 0;
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         widget.onScale(details.delta.dy);
@@ -66,7 +68,7 @@ class _PriceColumnState extends State<PriceColumn> {
                 child: ListView(
                   padding: EdgeInsets.zero,
                   controller: scrollController,
-                  children: List<Widget>.generate(20, (i) {
+                  children: List<Widget>.generate(priceCount, (i) {
                     return AnimatedContainer(
                       duration: Duration(milliseconds: 300),
                       height: priceTileHeight,
@@ -109,7 +111,8 @@ class _PriceColumnState extends State<PriceColumn> {
                 ),
                 child: Row(
                   children: [
-                    Transform.translate(offset: Offset(0, -1),
+                    Transform.translate(
+                      offset: Offset(0, -1),
                       child: Container(
                         width: widget.width,
                         height: 1,
@@ -119,7 +122,7 @@ class _PriceColumnState extends State<PriceColumn> {
                       ),
                     ),
                     Container(
-                      padding:EdgeInsets.symmetric(vertical: 0) ,
+                      padding: EdgeInsets.symmetric(vertical: 0),
                       color: widget.lastCandle.isBull
                           ? Theme.of(context).primaryGreen
                           : Theme.of(context).primaryRed,
@@ -132,7 +135,6 @@ class _PriceColumnState extends State<PriceColumn> {
                         textAlign: TextAlign.left,
                       ),
                       width: PRICE_BAR_WIDTH,
-
                     ),
                   ],
                 ),
