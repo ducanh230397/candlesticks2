@@ -36,6 +36,9 @@ class MobileChart extends StatefulWidget {
   /// changes when user scrolls along the chart
   final int index;
 
+  final double? additionalBottomPadding;
+
+
   /// How chart price range will be adjusted when moving chart
   final ChartAdjust chartAdjust;
 
@@ -57,6 +60,7 @@ class MobileChart extends StatefulWidget {
     required this.onPanEnd,
     required this.onReachEnd,
     this.displayCandleInfoText,
+    this.additionalBottomPadding,
   });
 
   @override
@@ -68,7 +72,7 @@ class _MobileChartState extends State<MobileChart> {
   double? longPressY;
   double? tapX;
   double? tapY;
-  double additionalVerticalPadding = 0;
+  double? additionalBottomPadding;
 
   double calcutePriceScale(double height, double high, double low) {
     int minTiles = (height / MIN_PRICETILE_HEIGHT).floor();
@@ -131,7 +135,7 @@ class _MobileChartState extends State<MobileChart> {
         }
 
         // calcute priceScale
-        double chartHeight = maxHeight * 1 - 2 * (MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding);
+        double chartHeight = maxHeight * 1 - 2* MAIN_CHART_VERTICAL_PADDING - (additionalBottomPadding ?? 0);
         double priceScale = calcutePriceScale(chartHeight, candlesHighPrice, candlesLowPrice);
 
         // high and low calibrations revision
@@ -220,7 +224,7 @@ class _MobileChartState extends State<MobileChart> {
                                     //   additionalVerticalPadding = max(0, additionalVerticalPadding);
                                     // });
                                   },
-                                  additionalVerticalPadding: additionalVerticalPadding,
+                                  additionalBottomPadding: additionalBottomPadding ?? 0,
                                 ),
                                 Row(
                                   children: [
@@ -245,8 +249,8 @@ class _MobileChartState extends State<MobileChart> {
                                           child: AnimatedPadding(
                                             duration: Duration(milliseconds: 300),
                                             padding: EdgeInsets.only(
-                                                top: MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding,
-                                                bottom:  additionalVerticalPadding,
+                                                top: MAIN_CHART_VERTICAL_PADDING,
+                                                bottom:  additionalBottomPadding ?? 0,
                                             ),
                                             child: RepaintBoundary(
                                               child: CandleStickWidget(
@@ -297,7 +301,7 @@ class _MobileChartState extends State<MobileChart> {
                                       child: Text(
                                         longPressY! < maxHeight * 1
                                             ? "  ${HelperFunctions.priceToString(
-                                                high - (longPressY! - 20) / (maxHeight * 1 - 40) * (high - low))}"
+                                                high - (longPressY! - 20) / (maxHeight * 1 - 40 - (additionalBottomPadding ?? 0)) * (high - low))}"
                                             : "  ${HelperFunctions.addMetricPrefix(
                                                 HelperFunctions.getRoof(volumeHigh) * (1 - (longPressY! - maxHeight * 1 - 10) / (maxHeight * 0 - 10)))}",
                                         style: TextStyle(

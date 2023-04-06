@@ -15,7 +15,7 @@ class PriceColumn extends StatefulWidget {
     required this.chartHeight,
     required this.lastCandle,
     required this.onScale,
-    required this.additionalVerticalPadding,
+    required this.additionalBottomPadding,
   }) : super(key: key);
 
   final double low;
@@ -24,7 +24,7 @@ class PriceColumn extends StatefulWidget {
   final double width;
   final double chartHeight;
   final Candle lastCandle;
-  final double additionalVerticalPadding;
+  final double additionalBottomPadding;
   final void Function(double) onScale;
 
   @override
@@ -53,7 +53,7 @@ class _PriceColumnState extends State<PriceColumn> {
       child: AbsorbPointer(
         child: Padding(
           padding:
-              EdgeInsets.symmetric(vertical: widget.additionalVerticalPadding),
+              EdgeInsets.only(bottom: widget.additionalBottomPadding),
           child: Stack(
             children: [
               AnimatedPositioned(
@@ -111,7 +111,7 @@ class _PriceColumnState extends State<PriceColumn> {
                 child: Row(
                   children: [
                     Transform.translate(
-                      offset: Offset(0, -1),
+                      offset: Offset(0, 1),
                       child: Container(
                         width: widget.width,
                         height: 1,
@@ -123,8 +123,8 @@ class _PriceColumnState extends State<PriceColumn> {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 0),
                       color: widget.lastCandle.isBull
-                          ? Theme.of(context).primaryGreen
-                          : Theme.of(context).primaryRed,
+                          ? Theme.of(context).primaryGreen.withOpacity(0.5)
+                          : Theme.of(context).primaryRed.withOpacity(0.5),
                       child: Text(
                         "  ${HelperFunctions.priceToString(widget.lastCandle.close)}",
                         style: TextStyle(
