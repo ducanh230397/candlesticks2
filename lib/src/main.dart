@@ -44,20 +44,17 @@ class Candlesticks extends StatefulWidget {
 
   final double? additionalBottomPadding;
 
-
   Candlesticks(
-      {
-        Key? key,
-        required this.candles,
-        this.onLoadMoreCandles,
-        this.actions = const [],
-        this.chartAdjust = ChartAdjust.visibleRange,
-        this.displayZoomActions = true,
-        this.controller,
-        this.loadingWidget,
-        this.displayCandleInfoText,
-        this.additionalBottomPadding,
-      })
+      {Key? key,
+      required this.candles,
+      this.onLoadMoreCandles,
+      this.actions = const [],
+      this.chartAdjust = ChartAdjust.visibleRange,
+      this.displayZoomActions = true,
+      this.controller,
+      this.loadingWidget,
+      this.additionalBottomPadding,
+      this.displayCandleInfoText})
       : assert(candles.length == 0 || candles.length > 1,
             "Please provide at least 2 candles"),
         super(key: key);

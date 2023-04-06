@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:candlesticks/src/utils/extensions.dart';
 import 'package:intl/intl.dart';
 
 class HelperFunctions {

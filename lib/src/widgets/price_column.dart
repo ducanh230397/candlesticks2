@@ -53,7 +53,7 @@ class _PriceColumnState extends State<PriceColumn> {
       child: AbsorbPointer(
         child: Padding(
           padding:
-          EdgeInsets.only(bottom: widget.additionalVerticalPadding),
+              EdgeInsets.only(bottom: widget.additionalVerticalPadding),
           child: Stack(
             children: [
               AnimatedPositioned(

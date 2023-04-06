@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0385281-31e7-4856-aabc-14787c4b78e7" name="Default Changelist" comment="update additionalBottomPadding">
+    <list default="true" id="a0385281-31e7-4856-aabc-14787c4b78e7" name="Default Changelist" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/utils/helper_functions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/utils/helper_functions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/candle_stick_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/candle_stick_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/widgets/mobile_chart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/mobile_chart.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/widgets/price_column.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/price_column.dart" afterDir="false" />
     </list>
@@ -80,7 +83,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680749742678</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update">
+      <created>1680752742728</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680752742728</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -97,6 +107,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update additionalBottomPadding" />
-    <option name="LAST_COMMIT_MESSAGE" value="update additionalBottomPadding" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>
