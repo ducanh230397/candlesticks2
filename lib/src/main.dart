@@ -42,16 +42,22 @@ class Candlesticks extends StatefulWidget {
 
   final bool? displayCandleInfoText;
 
+  final double? additionalBottomPadding;
+
+
   Candlesticks(
-      {Key? key,
-      required this.candles,
-      this.onLoadMoreCandles,
-      this.actions = const [],
-      this.chartAdjust = ChartAdjust.visibleRange,
-      this.displayZoomActions = true,
-      this.controller,
-      this.loadingWidget,
-      this.displayCandleInfoText})
+      {
+        Key? key,
+        required this.candles,
+        this.onLoadMoreCandles,
+        this.actions = const [],
+        this.chartAdjust = ChartAdjust.visibleRange,
+        this.displayZoomActions = true,
+        this.controller,
+        this.loadingWidget,
+        this.displayCandleInfoText,
+        this.additionalBottomPadding,
+      })
       : assert(candles.length == 0 || candles.length > 1,
             "Please provide at least 2 candles"),
         super(key: key);
@@ -239,6 +245,7 @@ class _CandlesticksState extends State<Candlesticks> {
                   candles: widget.candles,
                   index: index,
                   displayCandleInfoText: widget.displayCandleInfoText,
+                  additionalBottomPadding: widget.additionalBottomPadding,
                 );
               },
             ),
